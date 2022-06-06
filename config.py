@@ -1,2 +1,8 @@
+import os
+from werkzeug.security import generate_password_hash
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 class Config(object):
-    SECRET_KEY = 'q2p9repwoghnngdsla;dja;nval;sdf3923u905834023-5'
+    SECRET_KEY = generate_password_hash('my-secret-key')
+    DATABASE = os.path.join(basedir, 'database.db')

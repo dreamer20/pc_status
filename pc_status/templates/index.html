@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index page</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
     Index page
-</body>
-</html>
+{% endblock title %}
+
+    
+{% block content %}
+    <h1 class="title">Статус ПК</h1>
+    <h3 class="cur-date">Данные на: <span>{{sys_info['cur_date']}}</span></h3>
+    <div class="status-table">
+        <div class="status-table__col">
+            <div class="status-table__row">Температура процессора: <span class="status-table__data">{{sys_info['cpu_temp']}}&#8451;</span></div>
+            <div class="status-table__row">Температура SSD: <span class="status-table__data">{{sys_info['ssd_temp']}}&#8451;</span></div>
+            <div class="status-table__row">Место на диске (всего/доступно): <span class="status-table__data">{{sys_info['disk_space_total']}} / {{sys_info['disk_space_available']}}</span></div>
+            <div class="status-table__row">Оперативная память (всего/доступно): <span class="status-table__data">{{sys_info['ram_total']}} / {{sys_info['ram_available']}}</span></div>
+            <div class="status-table__row">Количество процессов: <span class="status-table__data">{{sys_info['process_count']}}</span></div>
+            <div class="status-table__row">Время работы без перезагрузки <span class="status-table__data">{{sys_info['uptime']}}</span></div>
+        </div>
+        <div class="status-table__col">
+            <div class="status-table__row">Скорость кулера (CPU fan): <span class="status-table__data">{{sys_info['cpu_fan']}} RPM</span></div>
+            <div class="status-table__row">Скорость кулера (Add. fan): <span class="status-table__data">{{sys_info['add_fan']}} PRM</span></div>
+            <div class="status-table__row">Уровень звука в ОС: <span class="status-table__data">{{sys_info['volume_level']}}%</span></div>
+            <div class="status-table__row">Последнее обновление: <span class="status-table__data">{{sys_info['last_update']}}</span></div>
+            <div class="status-table__row">Загрузкa системы (Load average): <span class="status-table__data">{{sys_info['load_average']}}</span></div>
+            <div class="status-table__row">Текущая раскладка: <span class="status-table__data">{{sys_info['keyboard_layout']}}</span></div>
+        </div>
+    </div>  
+{% endblock content %}
+    

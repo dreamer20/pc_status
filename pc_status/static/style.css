@@ -1,0 +1,36 @@
+* {
+    color: #333;
+}
+.title {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+}
+
+.cur-date {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.status-table {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.status-table__col {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 1 auto;
+}
+
+.status-table__row {
+    padding: 10px;
+    /*outline: 1px solid;*/
+}
+
+.status-table__data {
+/*     font-weight: 600; */
+    color: #007ca2;
+    font-style: italic;
+}
