@@ -16,20 +16,31 @@
 {% set add_fan = sys_info['add_fan'] if sys_info['add_fan'] != '' else '-' %}
 {% set volume_level = sys_info['volume_level'] if sys_info['volume_level'] != '' else '-' %}
 {% set last_update = sys_info['last_update'] if sys_info['last_update'] != '' else '-' %}
-{% set load_average = sys_info['load_average'] if sys_info['load_average'] != '' else '-' %}
+{% set load_average = sys_info['load_average'] if sys_info['load_average']   != '' else '-' %}
 {% set keyboard_layout = sys_info['keyboard_layout'] if sys_info['keyboard_layout'] != '' else '-' %}
 
 {% block content %}
     <h1 class="title">Статус ПК</h1>
-    <h3 class="cur-date">Данные на: <span>{{sys_info['cur_date']}}</span></h3>
+    <h3 class="cur-date">Данные на: <span>{{cur_datetime}}</span></h3>
     <div class="status-table">
         <div class="status-table__col">
             <div class="status-table__row">Температура процессора: <span class="status-table__data">{{cpu_temp}}&#8451;</span></div>
             <div class="status-table__row">Температура SSD: <span class="status-table__data">{{ssd_temp}}&#8451;</span></div>
-            <div class="status-table__row">Место на диске (всего/доступно): <span class="status-table__data">{{disk_space_total}} / {{disk_space_available}}</span></div>
-            <div class="status-table__row">Оперативная память (всего/доступно): <span class="status-table__data">{{ram_total}} / {{ram_available}}</span></div>
+            <div class="status-table__row">Место на диске (всего/доступно): <span class="status-table__data">{{disk_space_total}} GB / {{disk_space_available}} GB</span></div>
+            <div class="status-table__row">Оперативная память (всего/доступно): <span class="status-table__data">{{ram_total}} KB / {{ram_available}} KB</span></div>
             <div class="status-table__row">Количество процессов: <span class="status-table__data">{{process_count}}</span></div>
-            <div class="status-table__row">Время работы без перезагрузки <span class="status-table__data">{{uptime}}</span></div>
+            <div class="status-table__row">Время работы без перезагрузки: 
+                <span class="status-table__data">
+                    {% if uptime|length == 2 %}
+                        {{uptime}} мин.    
+                    {% elif uptime|length > 2 %}
+                        {{ uptime|replace(':', ' ч. ') }} мин.
+                    {% else %}
+                        -
+                    {% endif %}
+
+                </span>
+            </div>
         </div>
         <div class="status-table__col">
             <div class="status-table__row">Скорость кулера (CPU fan): <span class="status-table__data">{{cpu_fan}} RPM</span></div>
