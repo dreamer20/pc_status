@@ -4,26 +4,40 @@
     Index page
 {% endblock title %}
 
-    
+{% set cpu_temp = sys_info['cpu_temp'] if sys_info['cpu_temp'] != '' else '-' %}
+{% set ssd_temp = sys_info['ssd_temp'] if sys_info['ssd_temp'] != '' else '-' %}
+{% set disk_space_total = sys_info['disk_space_total'] if sys_info['disk_space_total'] != '' else '-' %}
+{% set disk_space_available = sys_info['disk_space_available'] if sys_info['disk_space_available'] != '' else '-' %}
+{% set ram_total = sys_info['ram_total'] if sys_info['ram_total'] != '' else '-' %}
+{% set ram_available = sys_info['ram_available'] if sys_info['ram_available'] != '' else '-' %}
+{% set process_count = sys_info['process_count'] if sys_info['process_count'] != '' else '-' %}
+{% set uptime = sys_info['uptime'] if sys_info['uptime'] != '' else '-' %}
+{% set cpu_fan = sys_info['cpu_fan'] if sys_info['cpu_fan'] != '' else '-' %}
+{% set add_fan = sys_info['add_fan'] if sys_info['add_fan'] != '' else '-' %}
+{% set volume_level = sys_info['volume_level'] if sys_info['volume_level'] != '' else '-' %}
+{% set last_update = sys_info['last_update'] if sys_info['last_update'] != '' else '-' %}
+{% set load_average = sys_info['load_average'] if sys_info['load_average'] != '' else '-' %}
+{% set keyboard_layout = sys_info['keyboard_layout'] if sys_info['keyboard_layout'] != '' else '-' %}
+
 {% block content %}
     <h1 class="title">Статус ПК</h1>
     <h3 class="cur-date">Данные на: <span>{{sys_info['cur_date']}}</span></h3>
     <div class="status-table">
         <div class="status-table__col">
-            <div class="status-table__row">Температура процессора: <span class="status-table__data">{{sys_info['cpu_temp']}}&#8451;</span></div>
-            <div class="status-table__row">Температура SSD: <span class="status-table__data">{{sys_info['ssd_temp']}}&#8451;</span></div>
-            <div class="status-table__row">Место на диске (всего/доступно): <span class="status-table__data">{{sys_info['disk_space_total']}} / {{sys_info['disk_space_available']}}</span></div>
-            <div class="status-table__row">Оперативная память (всего/доступно): <span class="status-table__data">{{sys_info['ram_total']}} / {{sys_info['ram_available']}}</span></div>
-            <div class="status-table__row">Количество процессов: <span class="status-table__data">{{sys_info['process_count']}}</span></div>
-            <div class="status-table__row">Время работы без перезагрузки <span class="status-table__data">{{sys_info['uptime']}}</span></div>
+            <div class="status-table__row">Температура процессора: <span class="status-table__data">{{cpu_temp}}&#8451;</span></div>
+            <div class="status-table__row">Температура SSD: <span class="status-table__data">{{ssd_temp}}&#8451;</span></div>
+            <div class="status-table__row">Место на диске (всего/доступно): <span class="status-table__data">{{disk_space_total}} / {{disk_space_available}}</span></div>
+            <div class="status-table__row">Оперативная память (всего/доступно): <span class="status-table__data">{{ram_total}} / {{ram_available}}</span></div>
+            <div class="status-table__row">Количество процессов: <span class="status-table__data">{{process_count}}</span></div>
+            <div class="status-table__row">Время работы без перезагрузки <span class="status-table__data">{{uptime}}</span></div>
         </div>
         <div class="status-table__col">
-            <div class="status-table__row">Скорость кулера (CPU fan): <span class="status-table__data">{{sys_info['cpu_fan']}} RPM</span></div>
-            <div class="status-table__row">Скорость кулера (Add. fan): <span class="status-table__data">{{sys_info['add_fan']}} PRM</span></div>
-            <div class="status-table__row">Уровень звука в ОС: <span class="status-table__data">{{sys_info['volume_level']}}%</span></div>
-            <div class="status-table__row">Последнее обновление: <span class="status-table__data">{{sys_info['last_update']}}</span></div>
-            <div class="status-table__row">Загрузкa системы (Load average): <span class="status-table__data">{{sys_info['load_average']}}</span></div>
-            <div class="status-table__row">Текущая раскладка: <span class="status-table__data">{{sys_info['keyboard_layout']}}</span></div>
+            <div class="status-table__row">Скорость кулера (CPU fan): <span class="status-table__data">{{cpu_fan}} RPM</span></div>
+            <div class="status-table__row">Скорость кулера (Add. fan): <span class="status-table__data">{{add_fan}} PRM</span></div>
+            <div class="status-table__row">Уровень звука в ОС: <span class="status-table__data">{{volume_level}}%</span></div>
+            <div class="status-table__row">Последнее обновление: <span class="status-table__data">{{last_update}}</span></div>
+            <div class="status-table__row">Загрузкa системы (Load average): <span class="status-table__data">{{load_average}}</span></div>
+            <div class="status-table__row">Текущая раскладка: <span class="status-table__data">{{keyboard_layout}}</span></div>
         </div>
     </div>  
 {% endblock content %}
