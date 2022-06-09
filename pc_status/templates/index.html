@@ -11,7 +11,6 @@
 {% set ram_total = sys_info['ram_total'] if sys_info['ram_total'] != '' else '-' %}
 {% set ram_available = sys_info['ram_available'] if sys_info['ram_available'] != '' else '-' %}
 {% set process_count = sys_info['process_count'] if sys_info['process_count'] != '' else '-' %}
-{% set uptime = sys_info['uptime'] if sys_info['uptime'] != '' else '-' %}
 {% set cpu_fan = sys_info['cpu_fan'] if sys_info['cpu_fan'] != '' else '-' %}
 {% set add_fan = sys_info['add_fan'] if sys_info['add_fan'] != '' else '-' %}
 {% set volume_level = sys_info['volume_level'] if sys_info['volume_level'] != '' else '-' %}
@@ -31,10 +30,10 @@
             <div class="status-table__row">Количество процессов: <span class="status-table__data">{{process_count}}</span></div>
             <div class="status-table__row">Время работы без перезагрузки: 
                 <span class="status-table__data">
-                    {% if uptime|length == 2 %}
-                        {{uptime}} мин.    
-                    {% elif uptime|length > 2 %}
-                        {{ uptime|replace(':', ' ч. ') }} мин.
+                    {% if sys_info['uptime']|length == 1 or sys_info['uptime']|length == 2 %}
+                        {{sys_info['uptime']}} мин.    
+                    {% elif sys_info['uptime']|length > 2 %}
+                        {{ sys_info['uptime']|replace(':', ' ч. ') }} мин.
                     {% else %}
                         -
                     {% endif %}

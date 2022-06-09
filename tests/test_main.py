@@ -94,3 +94,15 @@ def test_main_uptime_represention(client):
     response = client.get('/')
 
     assert '2 ч. 22 мин.'.encode() in response.data
+
+    query_string2 = dict(query_params)
+    query_string2['uptime'] = '2'
+
+    response = client.get('/add', query_string=query_string2)
+    
+    assert response.status_code == 200
+    assert b'Successful.' in response.data
+
+    response = client.get('/')
+
+    assert '2 мин.'.encode() in response.data
