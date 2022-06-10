@@ -41,8 +41,7 @@
 
 .status-table {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
+    flex-flow: row wrap;
 }
 
 .status-table__col {
@@ -66,5 +65,16 @@
 @media screen and (min-width: 778px) {
     .menu {
         margin: 20px 40px;
+    }
+
+    .status-table {
+        margin: 0 20px;
+    }
+}
+
+
+@media screen and (min-width: 998px) {
+    .status-table {
+        justify-content: center;
     }
 }
