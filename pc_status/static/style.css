@@ -1,6 +1,35 @@
 * {
     color: #333;
+    font-family: 'Montserrat', sans-serif;
 }
+
+.header {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.menu {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 15px;
+    padding: 0;
+}
+
+.menu__item {
+    flex: 0 0 auto;
+    padding: 10px;
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+.menu__link {
+    font-family: 'Roboto', sans-serif;
+}
+
+.menu__link:hover {
+    text-decoration: none;
+}
+
 .title {
     font-family: 'Source Sans Pro', sans-serif;
     text-align: center;
@@ -8,14 +37,12 @@
 
 .cur-date {
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .status-table {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .status-table__col {
@@ -33,4 +60,11 @@
 /*     font-weight: 600; */
     color: #007ca2;
     font-style: italic;
+}
+
+
+@media screen and (min-width: 778px) {
+    .menu {
+        margin: 20px 40px;
+    }
 }
