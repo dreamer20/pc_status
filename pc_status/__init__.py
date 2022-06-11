@@ -11,8 +11,9 @@ def create_app(test_config=None):
     if test_config is not None:
         app.config.from_mapping(test_config)
 
-    from . import main
+    from . import main, search
     app.register_blueprint(main.bp)
+    app.register_blueprint(search.bp)
 
     from . import db
     db.init_app(app)
