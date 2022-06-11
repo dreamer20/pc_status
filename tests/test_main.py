@@ -39,7 +39,7 @@ query_params = {
 
 def test_index(client):
 
-    cur_datetime = datetime.fromtimestamp(1654538958).strftime("%Y.%m.%d %H:%M")
+    cur_datetime = datetime.fromtimestamp(1654345800.0).strftime("%Y.%m.%d %H:%M")
 
     response = client.get('/')
 
