@@ -3,7 +3,6 @@
 {% block title %}
     Поиск данных
 {% endblock title %}
-    
 
 {% block content %}
     <h1 class="title">Поиск данных</h1>
@@ -29,34 +28,45 @@
                         <th title="Тем-ра CPU">Тем-ра CPU</th>
                         <th title="Тем-ра SSD">Тем-ра SSD</th>
                         <th title="Место на диске (всего/доступно)">Место на диске (всего/доступно)</th>
-                        <th title="Оперативная память (всего/доступно):">Оперативная память (всего/доступно):</th>
+                        <th title="Оперативная память (всего/доступно)">Оперативная память (всего/доступно)</th>
                         <th title="Кол-во процессов">Кол-во процессов</th>
-                        <th title="Время работы без перезагрузки:">Время работы без перезагрузки:</th>
-                        <th title="Скорость кулера (CPU fan):">Скорость кулера (CPU fan):</th>
-                        <th title="Скорость кулера (Add. fan):">Скорость кулера (Add. fan):</th>
-                        <th title="Уровень звука в ОС:">Уровень звука в ОС:</th>
-                        <th title="Последнее обновление:">Последнее обновление:</th>
-                        <th title="Загрузкa системы (Load average):">Загрузкa системы (Load average):</th>
-                        <th title="Текущая раскладка:">Текущая раскладка:</th>
+                        <th title="Время работы без перезагрузки">Время работы без перезагрузки</th>
+                        <th title="Скорость кулера (CPU fan)">Скорость кулера (CPU fan)</th>
+                        <th title="Скорость кулера (Add. fan)">Скорость кулера (Add. fan)</th>
+                        <th title="Уровень звука в ОС">Уровень звука в ОС</th>
+                        <th title="Последнее обновление">Последнее обновление</th>
+                        <th title="Загрузкa системы (Load average)">Загрузкa системы (Load average)</th>
+                        <th title="Текущая раскладка">Текущая раскладка</th>
                     </tr>            
                 </thead>
 
                 <tbody>
                     {% for row in sys_info %}
+                    {% set cur_datetime = (row['cur_date']|fromtimestamp).split(' ') %}
                         <tr>
-                            <td title="Дата">{{row['cur_date']|fromtimestamp}}</td>
-                            <td title="Тем-ра CPU">{{row['cpu_temp']}}</td>
-                            <td title="Тем-ра SSD">{{row['ssd_temp']}}</td>
-                            <td title="Место на диске (всего/доступно)">{{row['disk_space_total']}} GB/ {{row['disk_space_available']}} GB</td>
-                            <td title="Оперативная память (всего/доступно):">{{row['ram_total']}} KB / {{row['ram_available']}} KB</td>
-                            <td title="Кол-во процессов">{{row['process_count']}}</td>
-                            <td title="Время работы без перезагрузки:">{{row['uptime']}}</td>
-                            <td title="Скорость кулера (CPU fan):">{{row['cpu_fan']}}</td>
-                            <td title="Скорость кулера (Add. fan):">{{row['add_fan']}}</td>
-                            <td title="Уровень звука в ОС:">{{row['volume_level']}}</td>
-                            <td title="Последнее обновление:">{{row['last_update']}}</td>
-                            <td title="Загрузкa системы (Load average):">{{row['load_average']}}</td>
-                            <td title="Текущая раскладка:">{{row['keyboard_layout']}}</td>            
+                            <td title="Дата">
+                                <a href="{{url_for('search.index',
+                                    from_date=cur_datetime[0]|replace('.', '-'),
+                                    to_date=cur_datetime[0]|replace('.', '-'))}}">{{cur_datetime[0]}}</a> {{cur_datetime[1]}}
+                            </td>
+                            <td title="Тем-ра CPU">{{row['cpu_temp']|valueformat}}</td>
+                            <td title="Тем-ра SSD">{{row['ssd_temp']|valueformat}}</td>
+                            <td title="Место на диске (всего/доступно)">{{row['disk_space_total']|valueformat}} GB / {{row['disk_space_available']|valueformat}} GB</td>
+                            <td title="Оперативная память (всего/доступно)">{{row['ram_total']|valueformat}} KB / {{row['ram_available']|valueformat}} KB</td>
+                            <td title="Кол-во процессов">{{row['process_count']|valueformat}}</td>
+                            <td title="Время работы без перезагрузки">{{row['uptime']|uptimeformat}}</td>
+                            <td title="Скорость кулера (CPU fan)">{{row['cpu_fan']|valueformat}}</td>
+                            <td title="Скорость кулера (Add. fan)">{{row['add_fan']|valueformat}}</td>
+                            <td title="Уровень звука в ОС">{{row['volume_level']|valueformat}}%</td>
+                            <td title="Последнее обновление">
+                                {% if last_update|valueformat    == '-' %}
+                                    -
+                                {% else %}
+                                  {{row['last_update'][0:-3]|replace('-', '.')}}
+                                {% endif %}
+                            </td>
+                            <td title="Загрузкa системы (Load average)">{{row['load_average']|valueformat}}</td>
+                            <td title="Текущая раскладка">{{row['keyboard_layout']|valueformat}}</td>            
                         </tr>            
                     {% endfor %}
                 </tbody>

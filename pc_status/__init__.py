@@ -11,6 +11,14 @@ def create_app(test_config=None):
     if test_config is not None:
         app.config.from_mapping(test_config)
 
+
+    @app.template_filter('valueformat')
+    def valueformat_filter(value):
+        if value == '':
+            return '-'
+        return value
+
+
     @app.template_filter('fromtimestamp')
     def fromtimestamp_filter(timestamp):
         return datetime.fromtimestamp(timestamp).strftime("%Y.%m.%d %H:%M")
