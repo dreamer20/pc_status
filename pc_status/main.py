@@ -13,9 +13,8 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def index():
     db = get_db()
     sys_info = db.execute('SELECT * FROM pc_status WHERE cur_date = (SELECT max(cur_date) from pc_status)').fetchone()
-    cur_datetime = datetime.fromtimestamp(sys_info['cur_date']).strftime("%Y.%m.%d %H:%M")
 
-    return render_template('index.html', sys_info=sys_info, cur_datetime=cur_datetime)
+    return render_template('index.html', sys_info=sys_info)
 
 
 @bp.route('/add')

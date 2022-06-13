@@ -4,6 +4,7 @@
     Index page
 {% endblock title %}
 
+{% set cur_datetime = (sys_info['cur_date']|fromtimestamp).split(' ') %}
 {% set cpu_temp = sys_info['cpu_temp'] if sys_info['cpu_temp'] != '' else '-' %}
 {% set ssd_temp = sys_info['ssd_temp'] if sys_info['ssd_temp'] != '' else '-' %}
 {% set disk_space_total = sys_info['disk_space_total'] if sys_info['disk_space_total'] != '' else '-' %}
@@ -14,13 +15,13 @@
 {% set cpu_fan = sys_info['cpu_fan'] if sys_info['cpu_fan'] != '' else '-' %}
 {% set add_fan = sys_info['add_fan'] if sys_info['add_fan'] != '' else '-' %}
 {% set volume_level = sys_info['volume_level'] if sys_info['volume_level'] != '' else '-' %}
-{% set last_update = sys_info['last_update'] if sys_info['last_update'] != '' else '-' %}
+{% set last_update = sys_info['last_update'].split(' ') if sys_info['last_update'] != '' else '-' %}
 {% set load_average = sys_info['load_average'] if sys_info['load_average']   != '' else '-' %}
 {% set keyboard_layout = sys_info['keyboard_layout'] if sys_info['keyboard_layout'] != '' else '-' %}
 
 {% block content %}
     <h1 class="title">Статус ПК</h1>
-    <h3 class="cur-date">Данные на: <span>{{cur_datetime}}</span></h3>
+    <h3 class="cur-date">Данные на: <span><a href="{{url_for('search.index', from_date=cur_datetime[0]|replace('.', '-'), to_date=cur_datetime[0]|replace('.', '-'))}}">{{cur_datetime[0]}}</a> в {{cur_datetime[1]}}</span></h3>
     <div class="status-table">
         <div class="status-table__col">
             <div class="status-table__row">Температура процессора: <span class="status-table__data">{{cpu_temp}}&#8451;</span></div>
@@ -45,7 +46,7 @@
             <div class="status-table__row">Скорость кулера (CPU fan): <span class="status-table__data">{{cpu_fan}} RPM</span></div>
             <div class="status-table__row">Скорость кулера (Add. fan): <span class="status-table__data">{{add_fan}} PRM</span></div>
             <div class="status-table__row">Уровень звука в ОС: <span class="status-table__data">{{volume_level}}%</span></div>
-            <div class="status-table__row">Последнее обновление: <span class="status-table__data">{{last_update}}</span></div>
+            <div class="status-table__row">Последнее обновление: <span class="status-table__data">{{last_update[0]|replace('-', '.')}} в {{(last_update[1])[0:-3]}}</span></div>
             <div class="status-table__row">Загрузкa системы (Load average): <span class="status-table__data">{{load_average}}</span></div>
             <div class="status-table__row">Текущая раскладка: <span class="status-table__data">{{keyboard_layout}}</span></div>
         </div>
