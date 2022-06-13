@@ -31,14 +31,7 @@
             <div class="status-table__row">Количество процессов: <span class="status-table__data">{{process_count}}</span></div>
             <div class="status-table__row">Время работы без перезагрузки: 
                 <span class="status-table__data">
-                    {% if sys_info['uptime']|length == 1 or sys_info['uptime']|length == 2 %}
-                        {{sys_info['uptime']}} мин.    
-                    {% elif sys_info['uptime']|length > 2 %}
-                        {{ sys_info['uptime']|replace(':', ' ч. ') }} мин.
-                    {% else %}
-                        -
-                    {% endif %}
-
+                    {{sys_info['uptime']|uptimeformat}}
                 </span>
             </div>
         </div>

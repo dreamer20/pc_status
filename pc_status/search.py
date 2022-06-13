@@ -8,11 +8,6 @@ from pc_status.db import get_db
 bp = Blueprint('search', __name__, url_prefix='/search')
 
 
-@bp.app_template_filter()
-def fromtimestamp(timestamp):
-    return datetime.fromtimestamp(timestamp).strftime("%Y.%m.%d %H:%M")
-
-
 @bp.route('/')
 def index():
     db = get_db()
