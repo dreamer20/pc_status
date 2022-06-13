@@ -46,7 +46,15 @@
             <div class="status-table__row">Скорость кулера (CPU fan): <span class="status-table__data">{{cpu_fan}} RPM</span></div>
             <div class="status-table__row">Скорость кулера (Add. fan): <span class="status-table__data">{{add_fan}} PRM</span></div>
             <div class="status-table__row">Уровень звука в ОС: <span class="status-table__data">{{volume_level}}%</span></div>
-            <div class="status-table__row">Последнее обновление: <span class="status-table__data">{{last_update[0]|replace('-', '.')}} в {{(last_update[1])[0:-3]}}</span></div>
+            <div class="status-table__row">Последнее обновление: 
+                <span class="status-table__data">
+                    {% if last_update == '-' %}
+                        -
+                    {% else %}
+                      {{last_update[0]|replace('-', '.')}} в {{(last_update[1])[0:-3]}}
+                    {% endif %}
+                </span>
+            </div>
             <div class="status-table__row">Загрузкa системы (Load average): <span class="status-table__data">{{load_average}}</span></div>
             <div class="status-table__row">Текущая раскладка: <span class="status-table__data">{{keyboard_layout}}</span></div>
         </div>
