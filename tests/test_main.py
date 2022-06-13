@@ -39,10 +39,10 @@ query_params = {
 
 def test_index(client):
 
-    cur_datetime = datetime.fromtimestamp(1654345800.0).strftime("%Y.%m.%d %H:%M")
+    cur_datetime = datetime.fromtimestamp(1654345800.0).strftime("%Y.%m.%d</a> в %H:%M")
 
     response = client.get('/')
-
+    print(response.data.decode())
     assert response.status_code == 200
     assert cur_datetime.encode() in response.data
 
@@ -59,7 +59,7 @@ def test_add(client):
     assert response.status_code == 200
     assert b'13250532' in response.data
     assert b' 0,06 0,23 0,29' in response.data
-    assert b'2022-06-06 20:42:44' in response.data
+    assert '2022.06.06 в 20:42'.encode() in response.data
 
 
 def test_add_empty_data(client):
