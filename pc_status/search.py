@@ -19,7 +19,7 @@ def index():
     if from_date is not None and from_date != '':
         start = datetime.strptime(f'{from_date}T00:00:00', '%Y-%m-%dT%H:%M:%S').timestamp()
     if to_date is not None and to_date != '':
-        to_date = datetime.strptime(to_date, '%Y-%m-%d') + timedelta(days=1)
+        to_date = datetime.strptime(f'{to_date}T23:59:59', '%Y-%m-%dT%H:%M:%S')
         stop = to_date.timestamp()
 
     if start is None and stop is not None:
