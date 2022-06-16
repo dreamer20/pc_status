@@ -1,4 +1,3 @@
-import pytest
 from datetime import datetime
 
 
@@ -34,12 +33,13 @@ query_params = {
     'volume_level': 58,
     'process_count': 305,
     'keyboard_layout': 'us'
-    }
+}
 
 
 def test_index(client):
 
-    cur_datetime = datetime.fromtimestamp(1654345800.0).strftime("%Y.%m.%d</a> в %H:%M")
+    cur_datetime = datetime.fromtimestamp(1654345800.0).strftime(
+        "%Y.%m.%d</a> в %H:%M")
 
     response = client.get('/')
     print(response.data.decode())
@@ -77,13 +77,14 @@ def test_add_empty_data(client):
     assert b'- PRM' in response.data
     assert b'-&#8451;' in response.data
 
+
 def test_main_uptime_represention(client):
 
     query_string = dict(query_params)
     query_string['uptime'] = '2:22'
 
     response = client.get('/')
-    
+
     assert '27 мин.'.encode() in response.data
 
     response = client.get('/add', query_string=query_string)
@@ -99,7 +100,7 @@ def test_main_uptime_represention(client):
     query_string2['uptime'] = '2'
 
     response = client.get('/add', query_string=query_string2)
-    
+
     assert response.status_code == 200
     assert b'Successful.' in response.data
 

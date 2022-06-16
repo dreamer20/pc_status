@@ -1,5 +1,4 @@
 import pytest
-from datetime import datetime
 
 
 def test_index(client):
@@ -19,7 +18,9 @@ test_search_data = [
     ('2022-06-02', '', '2022.06.02</a> 00:00', '2022.06.04</a> 12:30')
 ]
 
-@pytest.mark.parametrize('from_date, to_date, start_datetime, stop_datetime', test_search_data)
+
+@pytest.mark.parametrize(
+    'from_date, to_date, start_datetime, stop_datetime', test_search_data)
 def test_search_data(client, from_date, to_date, start_datetime, stop_datetime):
     """Check correctness of searching data in specific range of date"""
     params = {
