@@ -9,7 +9,7 @@ def test_index(client):
     assert 'Поиск данных'.encode() in response.data
 
 
-test_search_data = [
+test_search_dates = [
     ('2022-06-01', '2022-06-04', '2022.06.01</a> 00:00', '2022.06.04</a> 12:30'),
     ('2022-06-02', '2022-06-03', '2022.06.02</a> 00:00', '2022.06.03</a> 12:30'),
     ('', '', '2022.06.01</a> 00:00', '2022.06.04</a> 12:30'),
@@ -20,7 +20,7 @@ test_search_data = [
 
 
 @pytest.mark.parametrize(
-    'from_date, to_date, start_datetime, stop_datetime', test_search_data)
+    'from_date, to_date, start_datetime, stop_datetime', test_search_dates)
 def test_search_data(client, from_date, to_date, start_datetime, stop_datetime):
     """Check correctness of searching data in specific range of date"""
     params = {
