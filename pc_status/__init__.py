@@ -1,7 +1,7 @@
 import os
-from datetime import datetime
 from flask import Flask
 from config import Config
+from .filters import valueformat, fromtimestamp, uptimeformat
 
 
 def create_app(test_config=None):
@@ -9,28 +9,12 @@ def create_app(test_config=None):
 
     app.config.from_object(Config)
 
+    app.jinja_env.filters['valueformat'] = valueformat
+    app.jinja_env.filters['fromtimestamp'] = fromtimestamp
+    app.jinja_env.filters['uptimeformat'] = uptimeformat
+
     if test_config is not None:
         app.config.from_mapping(test_config)
-
-    @app.template_filter('valueformat')
-    def valueformat_filter(value):
-        if value == '':
-            return '-'
-        return value
-
-    @app.template_filter('fromtimestamp')
-    def fromtimestamp_filter(timestamp):
-        return datetime.fromtimestamp(timestamp).strftime("%Y.%m.%d %H:%M")
-
-    @app.template_filter('uptimeformat')
-    def uptimeformat_filter(time):
-        if len(time) in (1, 2):
-            return f'{time} мин.'
-        elif len(time) > 2:
-            _time = time.replace(':', ' ч. ')
-            return f'{_time} мин.'
-        else:
-            return '-'
 
     from . import main, search
     app.register_blueprint(main.bp)
