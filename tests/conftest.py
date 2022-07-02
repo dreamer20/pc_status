@@ -1,7 +1,9 @@
-import tempfile, os, pytest
+import os
+import pytest
 from pc_status import create_app
 from pc_status.db import init_db, get_db
-
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 
 with open(os.path.join(os.path.dirname(__file__), 'schema.sql'), 'rb') as f:
     _data_sql = f.read().decode('utf8')
@@ -18,6 +20,17 @@ def app(tmpdir):
         get_db().executescript(_data_sql)
 
     yield app
+
+
+@pytest.fixture(scope='session')
+def driver():
+    opt = Options()
+    opt.headless = True
+    driver = webdriver.Firefox(options=opt)
+
+    yield driver
+
+    driver.close()
 
 
 @pytest.fixture
