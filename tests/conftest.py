@@ -10,6 +10,18 @@ with open(os.path.join(os.path.dirname(__file__), 'schema.sql'), 'rb') as f:
 
 
 @pytest.fixture
+def app_with_empty_db(tmpdir):
+    db_path = tmpdir.join('database.db')
+
+    app = create_app({'TESTING': True, 'DATABASE': db_path})
+
+    with app.app_context():
+        init_db()
+
+    yield app
+
+
+@pytest.fixture
 def app(tmpdir):
     db_path = tmpdir.join('database.db')
 
@@ -22,7 +34,20 @@ def app(tmpdir):
     yield app
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture
+def app(tmpdir):
+    db_path = tmpdir.join('database.db')
+
+    app = create_app({'TESTING': True, 'DATABASE': db_path})
+
+    with app.app_context():
+        init_db()
+        get_db().executescript(_data_sql)
+
+    yield app
+
+
+@pytest.fixture()
 def driver():
     opt = Options()
     opt.headless = True

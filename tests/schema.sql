@@ -1,24 +1,3 @@
-DROP TABLE IF EXISTS pc_status;
-
-CREATE TABLE pc_status (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    cur_date INTEGER NOT NULL,
-    cpu_temp REAL,
-    ssd_temp REAL,
-    cpu_fan INTEGER,
-    add_fan INTEGER,
-    ram_total INTEGER,
-    ram_available INTEGER,
-    disk_space_total INTEGER,
-    disk_space_available INTEGER,
-    uptime TEXT,
-    load_average TEXT,
-    last_update TEXT,
-    volume_level INTEGER,
-    process_count INTEGER,
-    keyboard_layout TEXT
-);
-
 INSERT INTO pc_status VALUES (1,
 1654041600.0,
 53.8,
