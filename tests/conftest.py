@@ -1,7 +1,7 @@
 import os
 import pytest
 from pc_status import create_app
-from pc_status.db import init_db, get_db
+from pc_status.db import init_db, get_db, init_test_data
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
@@ -29,20 +29,7 @@ def app(tmpdir):
 
     with app.app_context():
         init_db()
-        get_db().executescript(_data_sql)
-
-    yield app
-
-
-@pytest.fixture
-def app(tmpdir):
-    db_path = tmpdir.join('database.db')
-
-    app = create_app({'TESTING': True, 'DATABASE': db_path})
-
-    with app.app_context():
-        init_db()
-        get_db().executescript(_data_sql)
+        init_test_data()
 
     yield app
 

@@ -23,6 +23,13 @@ def init_db():
         db.executescript(f.read().decode('utf8'))
 
 
+def init_test_data():
+    db = get_db()
+
+    with current_app.open_resource('test_data.sql') as f:
+        db.executescript(f.read().decode('utf8'))
+
+
 def close_db(e=None):
     db = g.pop('db', None)
 
@@ -37,6 +44,14 @@ def init_db_command():
     click.echo('Initialized the database.')
 
 
+@click.command('init-test-data')
+@with_appcontext
+def init_test_data_command():
+    init_test_data()
+    click.echo('Test data was populated in database.')
+
+
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+    app.cli.add_command(init_test_data_command)

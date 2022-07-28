@@ -1,4 +1,4 @@
-from pc_status.db import get_db
+import pc_status.db_api as db
 
 test_data = {
     'cpu_temp': 50.8,
@@ -35,13 +35,6 @@ test_data_empty = {
 }
 
 
-def test_db(app):
-    """ Returns the same db for app """
-    with app.app_context():
-        db = get_db()
-        assert db is get_db()
-
-
 def test_add_data(client, app):
     """ Adds new record to db """
     response = client.get('/add', query_string=test_data)
@@ -50,9 +43,7 @@ def test_add_data(client, app):
     assert b'Successful.' in response.data
 
     with app.app_context():
-        db = get_db()
-        sys_info = db.execute('SELECT * FROM pc_status WHERE cur_date = \
-                          (SELECT max(cur_date) from pc_status)').fetchone()
+        sys_info = db.get_last_record()
         assert sys_info['cpu_temp'] == test_data['cpu_temp']
         assert sys_info['ssd_temp'] == test_data['ssd_temp']
         assert sys_info['cpu_fan'] == test_data['cpu_fan']
@@ -77,9 +68,7 @@ def test_add_empty_data(client, app):
     assert b'Successful.' in response.data
 
     with app.app_context():
-        db = get_db()
-        sys_info = db.execute('SELECT * FROM pc_status WHERE cur_date = \
-                          (SELECT max(cur_date) from pc_status)').fetchone()
+        sys_info = db.get_last_record()
         assert sys_info['cpu_temp'] == ''
         assert sys_info['ssd_temp'] == ''
         assert sys_info['cpu_fan'] == ''
