@@ -1,11 +1,9 @@
 from .pages.search_page import SearchPage
 
-URL_ROOT = 'http://localhost:5000/search/'
 
-
-def test_data_table_row_count(driver):
+def test_data_table_row_count(driver, app_root_url):
     ''' Checks if data table has correct row count '''
-    search_page = SearchPage(driver, URL_ROOT)
+    search_page = SearchPage(driver, f'{app_root_url}/search')
     search_page.open()
 
     expected_row_count = 21
