@@ -91,7 +91,6 @@ jobs:
         
       - name: Run tests
         run: pytest -k e2e
-        
         env:
           SELENIUM_GRID_HOST: selen
           APP_HOST: pc_status
