@@ -17,7 +17,6 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
-    container: python:3.8-slim-buster
     
     services:
       mygrid:
@@ -37,11 +36,10 @@ jobs:
       - name: Install app in local environment
         run: pip3 install -e .
         
-      - name: Add variable
-        run: export SELENIUM_GRID_HOST=mygrid
       - name: Run tests
         run: pytest -k e2e
         env:
+          SELENIUM_GRID_HOST: mygrid
           APP_HOST: myapp
           APP_PORT: 5000
       
