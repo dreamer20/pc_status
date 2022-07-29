@@ -15,67 +15,14 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  unit-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repo 
-        uses: actions/checkout@v2
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Execute unit tests
-        run: docker build ./ --target unit-tests
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repo 
-        uses: actions/checkout@v2
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Execute unit tests
-        run: docker build ./ --target lint
-  build:
-    needs: [unit-tests, lint]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repo 
-        uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pc_status:latest
-
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
   e2e-tests:
-    needs: build
     runs-on: ubuntu-latest
     container: python:3.8-slim-buster
     
     services:
-      selen:
+      mygrid:
         image: selenium/standalone-chrome
-      pc_status:
+      myapp:
         image: dreamer21/pc_status:latest
         ports:
           - 5000:5000
@@ -90,10 +37,11 @@ jobs:
       - name: Install app in local environment
         run: pip3 install -e .
         
+      - name: Add variable
+        run: export SELENIUM_GRID_HOST=mygrid
       - name: Run tests
         run: pytest -k e2e
         env:
-          SELENIUM_GRID_HOST: selen
-          APP_HOST: pc_status
+          APP_HOST: myapp
           APP_PORT: 5000
       
