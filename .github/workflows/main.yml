@@ -67,3 +67,33 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+  e2e-tests:
+    needs: build
+    runs-on: ubuntu-latest
+
+    services:
+      selen:
+        image: selenium/standalone-chrome
+      pc_status:
+        image: dreamer21/pc_status:latest
+        ports:
+          - 5000:5000
+          
+    steps:
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+      
+      - name: Install dev dependencies
+        run: pip3 install -r requirements-dev.txt
+        
+      - name: Install app in local environment
+        run: pip3 install -e .
+        
+      - name: Run tests
+        run: pytest -k e2e
+        
+        env:
+          SELENIUM_GRID_HOST: selen
+          APP_HOST: pc_status
+          APP_PORT: 5000
+      
