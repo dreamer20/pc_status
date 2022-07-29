@@ -70,7 +70,8 @@ jobs:
   e2e-tests:
     needs: build
     runs-on: ubuntu-latest
-
+    container: python:3.8-slim-buster
+    
     services:
       selen:
         image: selenium/standalone-chrome
