@@ -39,7 +39,9 @@ jobs:
         run: pip3 install -e .
         
       - name: Run tests
-        run: pytest -k e2e
+      - run: apt-get update; apt-get install curl -y
+      - run: mygrid:4444 > curl_result_docker
+      - run: cat curl_result_docker
         env:
           SELENIUM_GRID_HOST: mygrid
           APP_HOST: myapp
