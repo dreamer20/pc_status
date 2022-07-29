@@ -21,6 +21,8 @@ jobs:
     services:
       mygrid:
         image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
       myapp:
         image: dreamer21/pc_status:latest
         ports:
