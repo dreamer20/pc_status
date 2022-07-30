@@ -17,7 +17,6 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
-    container: python:3.8-slim-buster
     
     services:
       mygrid:
@@ -42,7 +41,8 @@ jobs:
       - name: Run tests
         run: pytest -k e2e
         env:
-          SELENIUM_GRID_HOST: mygrid
-          APP_HOST: myapp
+          SELENIUM_GRID_HOST: localhost
+          SELENIUM_GRID_PORT: 4444
+          APP_HOST: localhost
           APP_PORT: 5000
       
