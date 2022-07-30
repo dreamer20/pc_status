@@ -17,6 +17,7 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
+    container: python:3.8-slim-buster
     
     services:
       mygrid:
@@ -39,9 +40,7 @@ jobs:
         run: pip3 install -e .
         
       - name: Run tests
-      - run: apt-get update; apt-get install curl -y
-      - run: mygrid:4444 > curl_result_docker
-      - run: cat curl_result_docker
+        run: pytest -k e2e
         env:
           SELENIUM_GRID_HOST: mygrid
           APP_HOST: myapp
