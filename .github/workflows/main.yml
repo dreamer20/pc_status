@@ -45,7 +45,7 @@ jobs:
         run: pip3 install -e .
         
       - name: Run tests
-        run: pytest -k e2e
+        run: pytest tests/e2e/test_SearchPage.py
         env:
           SELENIUM_GRID_HOST: mygrid
           SELENIUM_GRID_PORT: 4444
