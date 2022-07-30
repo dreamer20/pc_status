@@ -55,7 +55,7 @@ def driver():
 
     yield driver
 
-    driver.close()
+    driver.quit()
 
 
 @pytest.fixture()
