@@ -67,3 +67,9 @@ def app_root_url():
 def client(app):
     client = app.test_client()
     return client
+
+
+@pytest.fixture
+def client_empty_db(app_with_empty_db):
+    client = app_with_empty_db.test_client()
+    return client
