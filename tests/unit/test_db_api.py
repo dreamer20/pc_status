@@ -12,9 +12,7 @@ test_data = {
     'uptime': '26',
     'load_average': '0,05 0,23 0,29',
     'last_update': '2022-06-06 20:42:44',
-    'volume_level': 59,
-    'process_count': 303,
-    'keyboard_layout': 'us'
+    'process_count': 303
 }
 
 

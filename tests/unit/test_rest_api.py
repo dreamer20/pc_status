@@ -12,9 +12,7 @@ test_data = {
     'uptime': '26',
     'load_average': ' 0,05 0,23 0,29',
     'last_update': '2022-06-06 20:42:44',
-    'volume_level': 59,
-    'process_count': 303,
-    'keyboard_layout': 'us'
+    'process_count': 303
 }
 
 test_data_empty = {
@@ -29,9 +27,7 @@ test_data_empty = {
     'uptime': '',
     'load_average': '',
     'last_update': '',
-    'volume_level': '',
-    'process_count': '',
-    'keyboard_layout': ''
+    'process_count': ''
 }
 
 
@@ -55,9 +51,7 @@ def test_add_data(client, app):
         assert sys_info['uptime'] == test_data['uptime']
         assert sys_info['load_average'] == test_data['load_average']
         assert sys_info['last_update'] == test_data['last_update']
-        assert sys_info['volume_level'] == test_data['volume_level']
         assert sys_info['process_count'] == test_data['process_count']
-        assert sys_info['keyboard_layout'] == test_data['keyboard_layout']
 
 
 def test_add_empty_data(client, app):
@@ -80,6 +74,4 @@ def test_add_empty_data(client, app):
         assert sys_info['uptime'] == ''
         assert sys_info['load_average'] == ''
         assert sys_info['last_update'] == ''
-        assert sys_info['volume_level'] == ''
         assert sys_info['process_count'] == ''
-        assert sys_info['keyboard_layout'] == ''

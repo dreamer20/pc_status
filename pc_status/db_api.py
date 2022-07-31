@@ -20,9 +20,7 @@ def add(data):
             uptime,
             load_average,
             last_update,
-            volume_level,
-            process_count,
-            keyboard_layout
+            process_count
         )
             VALUES (
                 :cur_date,
@@ -37,9 +35,7 @@ def add(data):
                 :uptime,
                 :load_average,
                 :last_update,
-                :volume_level,
-                :process_count,
-                :keyboard_layout
+                :process_count
             )
     ''', data_to_add)
     db.commit()

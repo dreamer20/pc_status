@@ -14,7 +14,5 @@ CREATE TABLE pc_status (
     uptime TEXT,
     load_average TEXT,
     last_update TEXT,
-    volume_level INTEGER,
-    process_count INTEGER,
-    keyboard_layout TEXT
+    process_count INTEGER
 );
