@@ -33,10 +33,8 @@
                         <th title="Время работы без перезагрузки">Время работы без перезагрузки</th>
                         <th title="Скорость кулера (CPU fan)">Скорость кулера (CPU fan)</th>
                         <th title="Скорость кулера (Add. fan)">Скорость кулера (Add. fan)</th>
-                        <th title="Уровень звука в ОС">Уровень звука в ОС</th>
                         <th title="Последнее обновление">Последнее обновление</th>
                         <th title="Загрузкa системы (Load average)">Загрузкa системы (Load average)</th>
-                        <th title="Текущая раскладка">Текущая раскладка</th>
                     </tr>            
                 </thead>
 
@@ -57,7 +55,6 @@
                             <td title="Время работы без перезагрузки">{{row['uptime']|uptimeformat}}</td>
                             <td title="Скорость кулера (CPU fan)">{{row['cpu_fan']|valueformat}}</td>
                             <td title="Скорость кулера (Add. fan)">{{row['add_fan']|valueformat}}</td>
-                            <td title="Уровень звука в ОС">{{row['volume_level']|valueformat}}%</td>
                             <td title="Последнее обновление">
                                 {% if last_update|valueformat    == '-' %}
                                     -
@@ -66,7 +63,6 @@
                                 {% endif %}
                             </td>
                             <td title="Загрузкa системы (Load average)">{{row['load_average']|valueformat}}</td>
-                            <td title="Текущая раскладка">{{row['keyboard_layout']|valueformat}}</td>            
                         </tr>            
                     {% endfor %}
                 </tbody>
