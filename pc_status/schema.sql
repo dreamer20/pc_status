@@ -16,3 +16,9 @@ CREATE TABLE pc_status (
     last_update TEXT,
     process_count INTEGER
 );
+
+CREATE TABLE total_uptime (
+    total_uptime INTEGER
+);
+
+INSERT INTO total_uptime VALUES (0);

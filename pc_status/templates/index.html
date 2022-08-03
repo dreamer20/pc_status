@@ -20,6 +20,11 @@
                 <div class="status-table__row">Место на диске (всего/доступно): <span class="status-table__data">{{sys_info['disk_space_total']|valueformat}} GB / {{sys_info['disk_space_available']|valueformat}} GB</span></div>
                 <div class="status-table__row">Оперативная память (всего/доступно): <span class="status-table__data">{{sys_info['ram_total']|valueformat}} KB / {{sys_info['ram_available']|valueformat}} KB</span></div>
                 <div class="status-table__row">Количество процессов: <span class="status-table__data">{{sys_info['process_count']|valueformat}}</span></div>
+                <div class="status-table__row">Общее время работы компьютера: 
+                    <span class="status-table__data">
+                        {{total_uptime|totaluptimeformat}}
+                    </span>
+                </div>
             </div>
             <div class="status-table__col">
                 <div class="status-table__row">Скорость кулера (CPU fan): <span class="status-table__data">{{sys_info['cpu_fan']|valueformat}} RPM</span></div>

@@ -9,8 +9,13 @@ bp = Blueprint('main', __name__, url_prefix='/')
 @bp.route('/')
 def index():
     record = db.get_last_record()
+    total_uptime = db.get_total_uptime()
 
-    return render_template('index.html', sys_info=record)
+    return render_template(
+        'index.html',
+        sys_info=record,
+        total_uptime=total_uptime
+    )
 
 
 @bp.route('/add')
@@ -31,6 +36,11 @@ def add():
         'process_count': request.args.get('process_count'),
         'keyboard_layout': request.args.get('keyboard_layout')
     }
+
+    total_uptime = request.args.get('total_uptime')
+
+    if total_uptime.isnumeric():
+        db.update_total_uptime(total_uptime)
 
     db.add(sys_info)
 

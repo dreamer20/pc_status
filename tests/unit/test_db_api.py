@@ -61,3 +61,25 @@ def test_get_all_records(app_with_empty_db):
         records = db.get_all_records()
 
         assert len(records) == 4
+
+
+def test_get_total_uptime(app_with_empty_db):
+    ''' Returns total uptime from db '''
+
+    with app_with_empty_db.app_context():
+        total_uptime = db.get_total_uptime()
+
+        assert total_uptime == 0
+
+
+def test_update_total_uptime(app_with_empty_db):
+    ''' Updates total uptime in db and returns it '''
+
+    with app_with_empty_db.app_context():
+        new_total_uptime = db.update_total_uptime(308)
+
+        assert new_total_uptime == 308
+
+        new_total_uptime = db.update_total_uptime(100)
+
+        assert new_total_uptime == 408

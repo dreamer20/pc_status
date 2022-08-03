@@ -12,7 +12,8 @@ test_data = {
     'uptime': '26',
     'load_average': ' 0,05 0,23 0,29',
     'last_update': '2022-06-06 20:42:44',
-    'process_count': 303
+    'process_count': 303,
+    'total_uptime': 100000
 }
 
 test_data_empty = {
@@ -27,7 +28,8 @@ test_data_empty = {
     'uptime': '',
     'load_average': '',
     'last_update': '',
-    'process_count': ''
+    'process_count': '',
+    'total_uptime': ''
 }
 
 
@@ -40,6 +42,8 @@ def test_add_data(client, app):
 
     with app.app_context():
         sys_info = db.get_last_record()
+        total_uptime = db.get_total_uptime()
+
         assert sys_info['cpu_temp'] == test_data['cpu_temp']
         assert sys_info['ssd_temp'] == test_data['ssd_temp']
         assert sys_info['cpu_fan'] == test_data['cpu_fan']
@@ -52,6 +56,7 @@ def test_add_data(client, app):
         assert sys_info['load_average'] == test_data['load_average']
         assert sys_info['last_update'] == test_data['last_update']
         assert sys_info['process_count'] == test_data['process_count']
+        assert total_uptime == test_data['total_uptime']
 
 
 def test_add_empty_data(client, app):
@@ -63,6 +68,8 @@ def test_add_empty_data(client, app):
 
     with app.app_context():
         sys_info = db.get_last_record()
+        total_uptime = db.get_total_uptime()
+
         assert sys_info['cpu_temp'] == ''
         assert sys_info['ssd_temp'] == ''
         assert sys_info['cpu_fan'] == ''
@@ -75,3 +82,4 @@ def test_add_empty_data(client, app):
         assert sys_info['load_average'] == ''
         assert sys_info['last_update'] == ''
         assert sys_info['process_count'] == ''
+        assert total_uptime == 0

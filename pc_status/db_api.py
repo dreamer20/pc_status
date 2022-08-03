@@ -61,3 +61,23 @@ def get_all_records():
     records = db.execute('SELECT * FROM pc_status').fetchall()
 
     return records
+
+
+def get_total_uptime():
+    db = get_db()
+    record = db.execute('SELECT total_uptime FROM total_uptime').fetchone()
+
+    return record['total_uptime']
+
+
+def update_total_uptime(uptime):
+    db = get_db()
+    total_uptime = get_total_uptime()
+    new_total_uptime = total_uptime + int(uptime)
+    db.execute(
+        'UPDATE total_uptime SET total_uptime = ? WHERE rowid = 1',
+        (new_total_uptime, )
+    )
+    db.commit()
+
+    return get_total_uptime()

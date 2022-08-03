@@ -1,7 +1,12 @@
 import os
 from flask import Flask
 from config import Config
-from .filters import valueformat, fromtimestamp, uptimeformat
+from .filters import (
+    valueformat,
+    fromtimestamp,
+    uptimeformat,
+    totaluptimeformat
+)
 
 
 def create_app(test_config=None):
@@ -12,6 +17,7 @@ def create_app(test_config=None):
     app.jinja_env.filters['valueformat'] = valueformat
     app.jinja_env.filters['fromtimestamp'] = fromtimestamp
     app.jinja_env.filters['uptimeformat'] = uptimeformat
+    app.jinja_env.filters['totaluptimeformat'] = totaluptimeformat
 
     if test_config is not None:
         app.config.from_mapping(test_config)
