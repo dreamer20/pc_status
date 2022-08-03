@@ -9,11 +9,13 @@ class SearchPage(BasePage):
             from_date_input = self.driver.find_element(
                 *SP_locators.FROM_DATE_INPUT
             )
+            from_date_input.clear()
             from_date_input.send_keys(from_date)
 
         if to_date is not None:
-            to_date = self.driver.find_element(*SP_locators.TO_DATE_INPUT)
-            to_date.send_keys(to_date)
+            to_date_input = self.driver.find_element(*SP_locators.TO_DATE_INPUT)
+            to_date_input.clear()
+            to_date_input.send_keys(to_date)
 
     def click_search_button(self):
         search_button = self.driver.find_element(*SP_locators.SEARCH_BUTTON)
@@ -44,8 +46,8 @@ class SearchPage(BasePage):
                 By.CSS_SELECTOR,
                 f'td:nth-child({str(column_index)})'
             )
-
-        return column.text()
+        print(column)
+        return column.text
 
     def get_data_table_row_count(self):
         rows = self.driver.find_elements(*SP_locators.DATA_TABLE_ROWS)
