@@ -1,18 +1,6 @@
 from .pages.search_page import SearchPage
 import pytest
 
-
-def test_data_table_row_count(driver, app_root_url):
-    ''' Checks if data table has correct row count '''
-    search_page = SearchPage(driver, f'{app_root_url}/search')
-    search_page.open()
-
-    expected_row_count = 21
-    actual_row_count = search_page.get_data_table_row_count()
-
-    assert expected_row_count == actual_row_count, "Row count doesn'n match"
-
-
 search_date_test_data = [
     ('2022-06-01', '2022-06-01', '2022.06.01', '2022.06.01', 6),
     ('2022-06-01', '', '2022.06.01', '2022.06.04', 21),
@@ -20,6 +8,18 @@ search_date_test_data = [
     ('', '', '2022.06.01', '2022.06.04', 21),
     ('', '2022-06-03', '2022.06.01', '2022.06.03', 16),
 ]
+
+
+@pytest.mark.skip(reason='not implemented yet')
+def test_search_page_shows_10_records_by_default(driver, app_root_url):
+    ''' Checks if data table has correct row count '''
+    search_page = SearchPage(driver, f'{app_root_url}/search')
+    search_page.open()
+
+    expected_row_count = 10
+    actual_row_count = search_page.get_data_table_row_count()
+
+    assert expected_row_count == actual_row_count, "Row count doesn't match"
 
 
 @pytest.mark.parametrize(
