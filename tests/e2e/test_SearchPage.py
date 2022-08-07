@@ -48,7 +48,7 @@ def test_search_date_from_to(driver,
     search_page = SearchPage(driver, f'{app_root_url}/search')
     search_page.open()
 
-    if isinstance(driver, webdriver.Chrome):
+    if isinstance(driver, webdriver.Chrome) or driver.capabilities['browserName'] == 'chrome':
         search_page.select_date(
             date_to_chrome_format(from_date),
             date_to_chrome_format(to_date)
