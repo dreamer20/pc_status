@@ -12,11 +12,14 @@ search_date_test_data = [
 ]
 
 
-def date_to_chrome_format(date):
+def date_to_chrome_format(date, type):
     if date == '':
         return ''
     d = date.split('-')
-    return d[2] + d[1] + d[0]
+    if 'remote':
+        return d[1] + d[2] + d[0]
+    else:
+        return d[2] + d[1] + d[0]
 
 
 def test_search_page_shows_10_records_by_default(driver, app_root_url):
@@ -48,13 +51,19 @@ def test_search_date_from_to(driver,
     search_page = SearchPage(driver, f'{app_root_url}/search')
     search_page.open()
 
-    if isinstance(driver, webdriver.Chrome) or driver.capabilities['browserName'] == 'chrome':
+    if isinstance(driver, webdriver.Chrome):
         search_page.select_date(
             date_to_chrome_format(from_date),
             date_to_chrome_format(to_date)
         )
+    elif driver.capabilities['browserName'] == 'chrome':
+        search_page.select_date(
+            date_to_chrome_format(from_date, 'remote'),
+            date_to_chrome_format(to_date, 'remote')
+        )
     else:
         search_page.select_date(from_date, to_date)
+
     search_page.click_search_button()
     search_page = SearchPage(driver, driver.current_url)
 
