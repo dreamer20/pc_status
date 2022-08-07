@@ -1,3 +1,4 @@
+import pytest
 from pc_status import db_api as db
 
 test_data = {
@@ -14,6 +15,11 @@ test_data = {
     'last_update': '2022-06-06 20:42:44',
     'process_count': 303
 }
+
+test_data_range = [
+    ('2022-06-01', '2022-06-01', 6),
+    ('2022-06-02', '2022-06-03', 10)
+]
 
 
 def test_add_data(app_with_empty_db):
@@ -83,3 +89,15 @@ def test_update_total_uptime(app_with_empty_db):
         new_total_uptime = db.update_total_uptime(100)
 
         assert new_total_uptime == 408
+
+
+@pytest.mark.parametrize('from_date, to_date, expected_count', test_data_range)
+def test_get_records_by_range(app, from_date, to_date, expected_count):
+    ''' Returns dictionary with records, date range and offsets '''
+    with app.app_context():
+        result = db.get_records_by_range(from_date, to_date)
+
+        assert isinstance(result, dict)
+        assert len(result['records']) == expected_count
+        assert result['from_date'] == from_date
+        assert result['to_date'] == to_date

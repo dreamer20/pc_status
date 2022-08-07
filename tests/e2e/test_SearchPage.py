@@ -1,16 +1,16 @@
 from .pages.search_page import SearchPage
 import pytest
 
+limit = 10
 search_date_test_data = [
     ('2022-06-01', '2022-06-01', '2022.06.01', '2022.06.01', 6),
-    ('2022-06-01', '', '2022.06.01', '2022.06.04', 21),
-    ('2022-06-02', '', '2022.06.02', '2022.06.04', 15),
-    ('', '', '2022.06.01', '2022.06.04', 21),
-    ('', '2022-06-03', '2022.06.01', '2022.06.03', 16),
+    ('2022-06-01', '', '2022.06.01', '2022.06.02', limit),
+    ('2022-06-02', '', '2022.06.02', '2022.06.03', limit),
+    ('', '', '2022.06.01', '2022.06.02', limit),
+    ('', '2022-06-03', '2022.06.01', '2022.06.02', limit),
 ]
 
 
-@pytest.mark.skip(reason='not implemented yet')
 def test_search_page_shows_10_records_by_default(driver, app_root_url):
     ''' Checks if data table has correct row count '''
     search_page = SearchPage(driver, f'{app_root_url}/search')
@@ -50,6 +50,6 @@ def test_search_date_from_to(driver,
     actual_first_row_date = search_page.get_data_table_column_from_row(first_row, 'first')
     actual_last_row_date = search_page.get_data_table_column_from_row(last_row, 'first')
 
-    assert expected_first_row_date in actual_first_row_date, "Date count doesn't match"
-    assert expected_last_row_date in actual_last_row_date, "Date count doesn't match"
+    assert expected_first_row_date in actual_first_row_date, "Date doesn't match"
+    assert expected_last_row_date in actual_last_row_date, "Date doesn't match"
     assert expected_row_count == actual_row_count, "Row count doesn'n match"

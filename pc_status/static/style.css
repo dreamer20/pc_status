@@ -135,6 +135,35 @@
     cursor: pointer;
 }
 
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.pagination__inner {
+    flex: 0 0 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination__link-left {
+    margin-right: auto;
+}
+
+.pagination__link-right {
+    margin-left: auto;
+}
+
+.pagination__link {
+    color: #00abff;
+}
+
+.pagination__link:hover {
+    color: #006ea4;
+}
+
 
 @media screen and (min-width: 778px) {
     .menu {

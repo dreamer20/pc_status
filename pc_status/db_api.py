@@ -1,5 +1,6 @@
 from pc_status.db import get_db
 import time
+from pc_status.helpers import timestamps_from_date_range, get_new_offset
 
 
 def add(data):
@@ -81,3 +82,36 @@ def update_total_uptime(uptime):
     db.commit()
 
     return get_total_uptime()
+
+
+def get_records_by_range(from_date, to_date, limit=10, offset=0):
+    db = get_db()
+    start, stop = timestamps_from_date_range(from_date, to_date)
+
+    if start is None:
+        start = 0
+    if stop is None:
+        stop = get_last_record()['cur_date']
+
+    records_count = db.execute(
+        'SELECT count(rowid) AS count FROM pc_status \
+         WHERE cur_date >= ? and cur_date <= ?',
+        (start, stop)
+    ).fetchone()['count']
+
+    previous_offset, next_offset = get_new_offset(limit, offset, records_count)
+
+    records = db.execute(
+        "SELECT * FROM pc_status \
+         WHERE cur_date >= ? AND cur_date <= ? \
+         ORDER BY cur_date LIMIT ? OFFSET ?",
+        (start, stop, limit, offset)
+    ).fetchall()
+
+    return dict(
+        previous_offset=previous_offset,
+        next_offset=next_offset,
+        records=records,
+        from_date=from_date,
+        to_date=to_date
+    )

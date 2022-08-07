@@ -68,6 +68,17 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination">
+            <div class="pagination__inner">
+                {% if offset['prev'] == 0 or offset['prev'] %}
+                    <a class="pagination__link pagination__link-left"href="{{url_for('search.index', offset=offset['prev'], from_date=date['from'], to_date=date['to'], limit=limit)}}">Назад</a>
+                {% endif %}
+                {% if offset['next'] %}
+                    <a class="pagination__link pagination__link-right"href="{{url_for('search.index', offset=offset['next'], from_date=date['from'], to_date=date['to'], limit=limit)}}">Далее</a>
+                {% endif %}                
+            </div>
+        </div>
+            
     {% else %}
         <p class="search-hint">Выберите необходимый диапазон</p>
     {% endif %}
