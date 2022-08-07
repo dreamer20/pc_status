@@ -1,5 +1,6 @@
 from .pages.search_page import SearchPage
 import pytest
+from selenium import webdriver
 
 limit = 10
 search_date_test_data = [
@@ -9,6 +10,13 @@ search_date_test_data = [
     ('', '', '2022.06.01', '2022.06.02', limit),
     ('', '2022-06-03', '2022.06.01', '2022.06.02', limit),
 ]
+
+
+def date_to_chrome_format(date):
+    if date == '':
+        return ''
+    d = date.split('-')
+    return d[2] + d[1] + d[0]
 
 
 def test_search_page_shows_10_records_by_default(driver, app_root_url):
@@ -40,7 +48,13 @@ def test_search_date_from_to(driver,
     search_page = SearchPage(driver, f'{app_root_url}/search')
     search_page.open()
 
-    search_page.select_date(from_date=from_date, to_date=to_date)
+    if isinstance(driver, webdriver.Chrome):
+        search_page.select_date(
+            date_to_chrome_format(from_date),
+            date_to_chrome_format(to_date)
+        )
+    else:
+        search_page.select_date(from_date, to_date)
     search_page.click_search_button()
     search_page = SearchPage(driver, driver.current_url)
 
