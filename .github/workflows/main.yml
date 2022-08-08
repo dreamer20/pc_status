@@ -91,7 +91,9 @@ jobs:
       myapp:
         image: dreamer21/pc_status:latest
         ports:
-          - 5000:5000
+          - 8000:8000
+        env:
+          PORT=8000
   
     steps:
       - name: Check Out Repo 
@@ -109,5 +111,5 @@ jobs:
           SELENIUM_GRID_HOST: mygrid
           SELENIUM_GRID_PORT: 4444
           APP_HOST: myapp
-          APP_PORT: 5000
+          APP_PORT: 8000
       

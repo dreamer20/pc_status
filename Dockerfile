@@ -18,6 +18,5 @@ FROM build
 COPY requirements.txt ./
 ENV FLASK_APP=pc_status
 RUN pip3 install -r requirements.txt
-RUN flask init-db && \
-    flask init-test-data
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+RUN pip3 install .
+CMD gunicorn --bind 0.0.0.0:$PORT 'pc_status:create_app()'

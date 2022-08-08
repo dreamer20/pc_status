@@ -8,7 +8,7 @@ from selenium.webdriver.firefox.options import Options
 SELENIUM_GRID_HOST = os.getenv('SELENIUM_GRID_HOST')
 SELENIUM_GRID_PORT = os.getenv('SELENIUM_GRID_PORT', default='4444')
 APP_HOST = os.getenv('APP_HOST', default='localhost')
-APP_PORT = os.getenv('APP_PORT', default='5000')
+APP_PORT = os.getenv('APP_PORT', default='8000')
 
 
 with open(os.path.join(os.path.dirname(__file__), 'schema.sql'), 'rb') as f:
