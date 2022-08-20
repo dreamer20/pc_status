@@ -1,8 +1,10 @@
 from pc_status import db_api as db
+import os
 from flask import (
-    Blueprint, render_template, request
+    Blueprint, render_template, request, send_file
 )
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 bp = Blueprint('main', __name__, url_prefix='/')
 
 
@@ -45,3 +47,8 @@ def add():
     db.add(sys_info)
 
     return 'Successful.'
+
+
+@bp.route('/db/download')
+def download_db():
+    return send_file(os.path.join(basedir, '..', 'database.db'))
