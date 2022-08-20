@@ -17,19 +17,7 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
-    container: python:3.8-slim-buster
-  
-    services:
-      mygrid:
-        image: selenium/standalone-chrome
-        ports:
-          - 4444:4444
-        options: >-
-          --health-cmd /opt/bin/check-grid.sh
-          --health-interval 15s
-          --health-timeout 30s
-          --health-retries 5
-  
+    
     steps:
       - name: Check Out Repo 
         uses: actions/checkout@v2
@@ -47,16 +35,24 @@ jobs:
       - name: Install app in local environment
         run: pip3 install -e .
 
+      - name: Pull selenium grid
+        run: docker pull selenium/standalone-chrome
+
+      - name: Run selenium grid
+        run: docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" --name selenium-grid selenium/standalone-chrome
+
       - name: Run container
         run: docker run -d -p 8000:8000 -e PORT=8000 --name my-app docker-app
 
       - name: export environment variable app ip
         run: export APP_HOST=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-app)
+
+      - name: export environment variable app ip
+        run: export SELENIUM_GRID_HOST=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' selenium-grid)
         
       - name: Run tests
         run: pytest -k e2e
         env:
-          SELENIUM_GRID_HOST: mygrid
           SELENIUM_GRID_PORT: 4444
           APP_PORT: 8000
       
