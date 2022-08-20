@@ -86,15 +86,15 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
       - name: Heroku Docker Container Deploy
-      # You may pin to the exact commit or the version.
-      # uses: lucassarcanjo/heroku-deploy@1db4c62f6032efe526c12734f18d36669218e5af
-      uses: lucassarcanjo/heroku-deploy@2.1.17
-      with:
-        # Email Linked to your Heroku Account
-        email: gv4alex@gmail.com
-        # Your Heroku API Key
-        api_key: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-        # Your Heroku App Name
-        app_name:  serene-beyond-15967 
-        # Dokerfile path
-        dockerfile_path: ./
+        # You may pin to the exact commit or the version.
+        # uses: lucassarcanjo/heroku-deploy@1db4c62f6032efe526c12734f18d36669218e5af
+        uses: lucassarcanjo/heroku-deploy@2.1.17
+        with:
+          # Email Linked to your Heroku Account
+          email: gv4alex@gmail.com
+          # Your Heroku API Key
+          api_key: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          # Your Heroku App Name
+          app_name:  serene-beyond-15967 
+          # Dokerfile path
+          dockerfile_path: ./
