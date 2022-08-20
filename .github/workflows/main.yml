@@ -55,8 +55,9 @@ jobs:
         env:
           SELENIUM_GRID_PORT: 4444
           APP_PORT: 8000
+          
   Build-and-push:
-    needs: [unit-tests, lint]
+    needs: [Build-and-test]
     runs-on: ubuntu-latest
 
     steps:
